@@ -1,0 +1,29 @@
+- type: log
+  paths:
+     - /data/mysql/log/mysqld_err.log
+  document_type: raw
+  multiline.pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}'
+  multiline.negate: true
+  multiline.match: after
+  fields_under_root: true
+  fields:
+    app_name: {{ Application_Name }}
+    VM/PM: {{ MachineType }}
+    landscape: {{ Landscape }}
+    x_team: {{ x_team }}
+    x_project: MySQL
+
+- type: log
+  paths:
+     - /data/mysql/log/slow.log
+  document_type: raw
+  multiline.pattern: '^Time'
+  multiline.negate: true
+  multiline.match: after
+  fields_under_root: true
+  fields:
+    app_name: {{ Application_Name }}
+    VM/PM: {{ MachineType }}
+    landscape: {{ Landscape }}
+    x_team: {{ x_team }}
+    x_project: MySQL-slow

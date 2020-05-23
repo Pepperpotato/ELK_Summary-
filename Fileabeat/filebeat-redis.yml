@@ -1,0 +1,21 @@
+- type: log
+  paths:
+     - /data/redis/log/redis*.log
+  document_type: raw
+  fields:
+    app_name: {{ Application_Name }}
+    VM/PM: {{ MachineType }}
+    landscape: {{ Landscape }}
+    x_team: {{ x_team }}
+    x_project: Redis
+
+- type: log
+  paths:
+     - /data/redis/log/sentine.log
+  document_type: raw
+  fields:
+    app_name: {{ Application_Name }}
+    VM/PM: {{ MachineType }}
+    landscape: {{ Landscape }}
+    x_team: {{ x_team }}
+    x_project: Redis-sentine

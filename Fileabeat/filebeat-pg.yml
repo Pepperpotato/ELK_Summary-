@@ -1,0 +1,11 @@
+- type: log
+  paths:
+     - /data/postgres/data/log/*.csv
+  document_type: raw
+  ignore_older: 168h
+  fields:
+    app_name: {{ Application_Name }}
+    VM/PM: {{ MachineType }}
+    landscape: {{ Landscape }}
+    x_team: {{ x_team }}
+    x_project: PG

@@ -1,0 +1,45 @@
+#=========================== Filebeat prospectors =============================
+
+filebeat.prospectors:
+
+{% if db_type=="mysql" %}
+{% include  "filebeat-mysql.yml" %}
+{% endif %}
+{% if db_type=="redis" %}
+{% include  "filebeat-redis.yml" %}
+{% endif %}
+{% if db_type=="pg" %}
+{% include  "filebeat-pg.yml" %}
+{% endif %}
+
+- type: log
+  paths:
+    - /var/log/messages
+    - /var/log/secure
+  document_type: raw
+  fields_under_root: true
+  fields:
+    VM/PM: {{ MachineType }}
+    app_name: {{ Application_Name }}
+    landscape: {{ Landscape }}
+    x_platform: {{ OS }}
+    x_team: iaas
+
+fields_under_root: true
+fields:
+    x_host: {{ IP }}
+
+#================================ Outputs =====================================
+
+output.logstash:
+  hosts: ["10.122.48.55:5044"]
+
+#================================ Logging =====================================
+
+logging.level: warning
+logging.to_files: true
+logging.to_syslog: false
+logging.files:
+  path: /var/log/mybeat
+  name: mybeat.log
+  keepfiles: 7
